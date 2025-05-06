@@ -15,17 +15,18 @@ import {
   refreshAccessToken,
   registerUser,
 } from "./redux/auth/authActions";
+import { toast } from "react-toastify";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { accessToken } = useSelector((state) => state.auth);
-
+  const { accessToken, user } = useSelector((state) => state.auth);
+  
   useEffect(() => {
-    dispatch(refreshAccessToken())
+    dispatch(refreshAccessToken());
   }, [dispatch]);
 
   return (
-    <Router >
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

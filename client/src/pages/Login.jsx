@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { TbEyeClosed, TbLockPassword, TbEye } from "react-icons/tb";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Login = () => {
 
     if (state === "Sign-Up" && password !== confirmPass) {
       setErrorMsg("Passwords do not match! Re-Type Password");
+      toast.error("Passwords do not match!")
       return;
     }
 
@@ -36,12 +38,13 @@ const Login = () => {
         if (state === "Login") {
           await dispatch(loginUser({ email, password })).unwrap();
           navigate('/', { replace: true });
+          toast.success("Logged in! Welcome")
         } else {
           await dispatch(registerUser({ name, email, password })).unwrap();
           navigate('/', { replace: true });
+          toast.success("Registerd Successfully!")
         }
       } catch (error) {
-        // Error is already handled in authSlice
         console.error("Auth error:", error);
       }
   };

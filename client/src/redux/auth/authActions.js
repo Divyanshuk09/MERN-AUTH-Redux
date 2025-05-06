@@ -40,9 +40,6 @@ export const refreshAccessToken = createAsyncThunk('auth/refresh', async (_, thu
             user: res.data.user
         };
     } catch (error) {
-        // Clear local storage if refresh fails
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('user');
         return thunkAPI.rejectWithValue("Session Expired");
     }
 }

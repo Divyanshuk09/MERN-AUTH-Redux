@@ -10,11 +10,12 @@ export const verifyToken = (req, res, next) => {
         });
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) return res
-            .status(403)
-            .json({
-                msg: "Token is invalid"
-            });
+        if (err) {
+            if (err.name === 'TokenExpiredError') {
+              return res.status(401).json({ msg: 'Token expired' });
+            }
+            return res.status(403).json({ msg: 'Invalid token' });
+          }
         req.userId = decoded.userId;
         next();
     });

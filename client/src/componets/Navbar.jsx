@@ -4,6 +4,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/auth/authActions";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { accessToken, user } = useSelector((state) => state.auth);
@@ -13,6 +14,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    toast.success("Logged Out successfully!")
   };
 
   const isLoginPage = location.pathname === "/login";
